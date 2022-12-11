@@ -1,22 +1,31 @@
+<template>
+<div class="container py-4">
+  <FilterBanner @search="onSearch"></FilterBanner>
+  <CharacterList></CharacterList>
+</div>
+</template>
 <script>
-// import MyNav from "./components/MyNav.vue"
-import { store } from "./store";
+import CharacterList from "./components/CharacterList.vue"
+import FilterBanner from "./components/FilterBanner.vue"
+import { store, fetchCharacters } from "./store";
 
 export default {
-  // components: { TheHeader, TheFooter, CharactersList, FiltersBanner, TheLoader },
+  components: {CharacterList,FilterBanner },
   data () {
     return {
-      // welcome: "Welcome Boolean",
       store
     };
   },
+  methods:{
+    onSearch (filtersEmitted) {
+      this.store.activeFilters = filtersEmitted;
+      fetchCharacters();
+      console.log(filtersEmitted);
+    }
+  }
 };
 </script>
 
-<template>
-
-
-</template>
 
 <style lang="scss">
 	@use "./styles/general.scss";
